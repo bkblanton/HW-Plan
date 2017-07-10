@@ -11,6 +11,6 @@ Homework Plan is a simple web app intended to help students track their homework
 * Passwords are stored securely with 12-round bcrypt.
 
 ## Frameworks
-* [Python 3](https://www.python.org/)
-* [Flask](http://flask.pocoo.org/docs/0.11/)
+* [Python3](https://www.python.org/)
+* [Flask](http://flask.pocoo.org/)
 * [MongoDB](https://api.mongodb.com/python/current/)
