@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Edit {{ cls.name }}{% endblock %}
+{% block content %}
+    <h4>Edit {{ cls.name }}
+    <!--suppress BadExpressionStatementJS -->
+    <a class="btn btn-secondary float-right ml-1" href="{{ request.referrer }}" onclick="$.post('{%- if cls.archived -%}
+        {{ url_for("pages.unarchive_class", class_id=cls.get_id().__str__()) }}
+    {%- else -%}
+        {{ url_for("pages.archive_class", class_id=cls.get_id().__str__()) }}
+    {%- endif -%}');">
+        {%- if cls.archived -%}
+            Unarchive
+        {%- else -%}
+            Archive
+        {%- endif -%}
+    </a>
+    <a class="btn btn-danger float-right" onclick="$.post('{{ url_for("pages.delete_class", class_id=cls.get_id().__str__()) }}');" href="{{ url_for('pages.home') }}">Delete</a><br>
+    </h4>
+{% include "forms/render_form.html" %}
+{% endblock %}

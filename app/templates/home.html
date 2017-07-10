@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "cards.html" as cards with context %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col col-12 col-md-6">
+            <h4>Classes <a class="btn btn-primary btn-sm" href="{{ url_for("pages.new_class") }}">Create</a></h4>
+            {% for cls in current_user.get_classes(archived=False) %}
+                {{ cards.class_card(cls) }}
+            {% else %}
+                <small>You have no classes! Click the Create button to add one.</small>
+            {% endfor %}
+        </div>
+        <div class="col col-12 col-md-6">
+            <h4>Tasks</h4>
+            {% for task in current_user.get_tasks(archived=False) %}
+                {{ cards.task_card(task, show_class=True) }}
+            {% else %}
+                <small>You have no tasks! Choose a class to add a task.</small>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

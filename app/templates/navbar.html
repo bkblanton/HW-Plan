@@ -1,0 +1,51 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded mb-2">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{{ url_for("pages.index") }}">HW Plan</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for("pages.home") }}">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarClassesDropdown" aria-haspopup="true" aria-expanded="false">
+                    Classes
+                </a>
+                {% if not current_user.is_anonymous %}
+                <div class="dropdown-menu" aria-labelledby="navbarClassesDropdown">
+                    {% for cls in current_user.get_classes(archived=False) %}
+                         <a class="dropdown-item" href="{{ url_for('pages.view_class', class_id=cls.get_id().__str__()) }}">{{ cls.name }}</a>
+                    {% else %}
+                         <a class="dropdown-item" href="{{ url_for('pages.new_class') }}">Create Class</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for("pages.calendar") }}">Calendar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for("pages.archive") }}">Archive</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+            {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for("pages.account") }}">Account</a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("pages.logout") }}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("pages.login") }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("pages.register") }}">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

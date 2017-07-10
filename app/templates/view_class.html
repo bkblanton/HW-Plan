@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% import "cards.html" as cards with context %}
+{% block title %}{{ cls.name }}{% endblock %}
+{% block content %}
+
+    <h4>{{ cls.name }}
+        {% if cls.user_can_edit(current_user) %}
+        <a class="btn btn-secondary btn-sm" href="{{ url_for("pages.edit_class", class_id=cls.get_id().__str__()) }}">Edit</a>
+        {% endif %}
+    </h4>
+
+    {% with desc = cls.description %}
+        {% if desc %}
+            <div class="mb-2">
+            {% for line in desc.splitlines() %}
+            <p class="mb-0">{{ line }}</p>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% with archived = (request.args.get('archive', '').lower() == "true") %}
+        {% if not archived and cls.user_can_edit(current_user) %}
+            <a class="btn btn-primary" href="{{ url_for("pages.new_task", class_id=cls.get_id().__str__()) }}">Add Task</a>
+        {% endif %}
+        <a class="btn btn-secondary" href="{{ url_for("pages.view_class", class_id=cls.get_id().__str__()) + ("?archive=true" if not archived else '') }}">
+            {%- if not archived -%}
+                Show Archive
+            {%- else -%}
+                Show Unarchived
+            {%- endif -%}
+        </a>
+
+        {% for task in cls.get_tasks(archived=archived, unarchived=not archived) %}
+            {{ cards.task_card(task) }}
+        {% else %}
+            <p><small>{% if not archived %}You have no tasks! To get started, click "Add Task".{% else %}You have no archived tasks.{% endif %}</small></p>
+        {% endfor %}
+    {% endwith %}
+{% endblock %}

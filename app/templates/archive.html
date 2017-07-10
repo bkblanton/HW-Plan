@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "cards.html" as cards with context %}
+{% block title %}Archive{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col col-12 col-md-6">
+            <h4>Archived Classes</h4>
+            {% for cls in current_user.get_classes(archived=True, unarchived=False) %}
+                {{ cards.class_card(cls) }}
+            {% else %}
+                <small>You haven't archived any classes.</small>
+            {% endfor %}
+        </div>
+        <div class="col col-12 col-md-6">
+            <h4>Archived Tasks</h4>
+            {% for task in current_user.get_tasks(order=-1, archived=True, unarchived=False) %}
+                {{ cards.task_card(task, show_class=True) }}
+            {% else %}
+                <small>You haven't archived any tasks.</small>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% macro task_card(task, show_class=False) -%}
+    {% set cls = task.class_ %}
+    <div class="card mt-1">
+        <div class="card-block">
+            <h4 class="card-title">
+                <!--suppress BadExpressionStatementJS -->
+                {% if cls.user_can_edit(current_user) %}
+                    <button class="btn btn-secondary btn-sm float-right" onclick="$.post('{%- if task.archived -%}
+                        {{ url_for("pages.unarchive_task", task_id=task.get_id().__str__()) }}
+                    {%- else -%}
+                        {{ url_for("pages.archive_task", task_id=task.get_id().__str__()) }}
+                    {%- endif -%}'); $(this).parent().parent().parent().remove()">
+                        {%- if task.archived -%}
+                            Unarchive
+                        {%- else -%}
+                            Archive
+                        {%- endif -%}
+                    </button>
+                    <a href="{{ url_for("pages.edit_task", task_id=task.get_id().__str__()) }}">{{ task.name }}</a>
+                {% else %}
+                    {{ task.name }}
+                {% endif %}
+
+
+            </h4>
+            <h6 class="card-subtitle text-muted">
+                {%- if show_class -%}
+                    <a href="{{ url_for("pages.view_class", class_id=cls.get_id().__str__()) }}">{{ cls.name }}</a>
+                {%- endif %}
+                {{ task.category }}
+            </h6>
+            <p class="card-text">{{ task.description }}</p>
+            <small class="card-text">{{ task.date.strftime('%A %B %d, %Y at %I:%M %p') }}</small>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro class_card(cls) %}
+<div class="card mt-1">
+    <div class="card-block">
+        <h4 class="card-title"><a href="{{ url_for("pages.view_class", class_id=cls.get_id().__str__()) }}">{{ cls.name }}</a></h4>
+        {% with desc = cls.description %}
+            {% if desc %}
+                {{ desc }}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{%- endmacro %}

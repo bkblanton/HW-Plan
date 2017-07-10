@@ -1,0 +1,12 @@
+<form method="POST">
+    {% include "forms/form_errors.html" %}
+    {% for field in form %}
+        <div class="form-group">
+            {% if not field.flags.hidden %}
+            {{ field.label }}
+            {% endif %}
+            {{ field(class_="form-control") }}
+        </div>
+    {% endfor %}
+    <button type='submit' class="btn btn-primary">Submit</button>
+</form>

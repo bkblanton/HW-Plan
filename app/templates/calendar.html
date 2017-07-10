@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Calendar{% endblock %}
+{% block content %}
+    <a href="{{ url_for( 'pages.calendar', month=(calendar.month - 2)%12 + 1, year=(calendar.year - 1) if calendar.month==1 else calendar.year ) }}" class="btn btn-secondary float-left">◀ Previous</a>
+        <a href="{{ url_for( 'pages.calendar', month=calendar.month%12 + 1, year=(calendar.year + 1) if calendar.month==12 else calendar.year ) }}" class="btn btn-secondary float-right">Next ▶</a>
+
+    <h4 style="text-align: center;">{{ ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')[calendar.month - 1] + ' ' + calendar.year.__str__() }}</h4>
+    <br>
+    <div style="overflow-x: auto;">
+        <table class="table table-bordered table-sm mx-auto">
+            <thead>
+                <tr>
+                    {% for weekday in ('Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa') %}
+                        <th>{{ weekday }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in calendar.rows() %}
+                    <tr>
+                        {% for day in row %}
+                            <td>
+                                <h6>{{ day['date'].day }}</h6>
+                                {% for (class_id, class_name), tasks in day['tasks'].items() %}
+                                    <h6><a href="{{ url_for('pages.view_class', class_id=class_id.__str__()) }}">{{ class_name }}</a></h6>
+                                    <ul>
+                                        {% for task in tasks %}
+                                            <li><a href="{{ url_for("pages.edit_task", task_id=task.get_id().__str__()) }}">{{ task.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
