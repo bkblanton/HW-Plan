@@ -14,3 +14,8 @@ Homework Plan is a simple web app intended to help students track their homework
 * [Python3](https://www.python.org/)
 * [Flask](http://flask.pocoo.org/)
 * [MongoDB](https://api.mongodb.com/python/current/)
+
+## Screenshots
+![Home](screenshots/home.png)
+![Calendar](screenshots/calendar.png)
+![A Class](screenshots/class.png)
