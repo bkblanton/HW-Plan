@@ -99,7 +99,7 @@ def new_class():
     if form.validate_on_submit():
         name = form.name.data
         description = form.description.data
-        created_class = Class.create(name, current_user)
+        created_class = Class.create(name, current_user, description=description)
         return redirect(url_for('pages.home'))
     return render_template('new_class.html', form=form)
 
