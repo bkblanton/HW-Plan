@@ -16,6 +16,6 @@ Homework Plan is a simple web app intended to help students track their homework
 * [MongoDB](https://api.mongodb.com/python/current/)
 
 ## Screenshots
-![Home](screenshots/home.png)
-![Calendar](screenshots/calendar.png)
-![A Class](screenshots/class.png)
+![Home](screenshots/home.png?raw=true)
+![Calendar](screenshots/calendar.png?raw=true)
+![A Class](screenshots/class.png?raw=true)
