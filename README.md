@@ -1,7 +1,7 @@
 # Homework Plan
 
 ## Description
-Homework Plan is a simple web app intended to help students track their homework, projects, and exams in a simple, usable interface.
+Homework Plan is a web app intended to help students track their homework, projects, and exams in a simple, usable interface.
 
 ## Features
 * Create a personal account.
