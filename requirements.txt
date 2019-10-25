@@ -20,6 +20,6 @@ sendgrid==4.2.0
 six==1.10.0
 uritemplate==3.0.0
 validators==0.12.0
-Werkzeug==0.12.1
+Werkzeug==0.15.3
 WTForms==2.1
 WTForms-Components==0.10.3
